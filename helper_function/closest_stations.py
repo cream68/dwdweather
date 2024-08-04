@@ -1,3 +1,4 @@
+import streamlit as st
 from wetterdienst.provider.dwd.observation import (
     DwdObservationRequest,
     DwdObservationResolution,
@@ -5,7 +6,8 @@ from wetterdienst.provider.dwd.observation import (
 )
 import polars as pl
 
-def get_closest_stations(plz_coordinates, start_date, end_date, num_stations=3):
+@st.cache_data
+def get_closest_stations(plz_coordinates, start_date, end_date, num_stations):
     """Get the closest weather stations to the given coordinates"""
     # Initialize the request for temperature data
     request = DwdObservationRequest(

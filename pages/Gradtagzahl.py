@@ -6,7 +6,7 @@ from helper_function.gradtagszahl_before_avg import calculate_gradtagzahl
 from helper_function.sidbar import sidebar
 
 with st.sidebar:
-        st.session_state=sidebar()
+        sidebar()
 
 # Retrieve values from session state
 station_ids = st.session_state.get('station_ids', [])
@@ -25,8 +25,13 @@ with st.expander("Stationen", expanded=False):
 
 # inputs
 year = st.number_input(label="Jahr", min_value=2000,max_value=2024, value=2023)
-heating_indoor_temperature = st.number_input(label="Innentemperatur", min_value=0,max_value=200, value=14)
-heating_threshold = st.number_input(label="Heizgrenze", min_value=0,max_value=200, value=10)
+heating_indoor_temperature = st.number_input(label="Innentemperatur", min_value=0,max_value=25, value=st.session_state.heating_indoor_temperature)
+heating_threshold = st.number_input(label="Heizgrenze", min_value=0,max_value=25, value=st.session_state.heating_threshold)
+
+# update session state
+st.session_state.heating_indoor_temperature = heating_indoor_temperature
+st.session_state.heating_threshold = heating_threshold
+
 start_date = dt.datetime(year, 1, 1)
 end_date = dt.datetime(year, 12, 31)
 start_last_20_years = dt.datetime(2004, 1, 1)

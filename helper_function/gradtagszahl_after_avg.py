@@ -23,7 +23,6 @@ def calculate_gradtagzahl(daily_avg_df: pl.DataFrame, heating_indoor_temperature
     pl.col("day_of_year").str.starts_with("07-")
 )
 
-    print(filtered_df)
     filtered_df.write_parquet("juli_df.parquet")
 
     # Step 3: Calculate GTZ and heating days

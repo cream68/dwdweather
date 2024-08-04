@@ -14,7 +14,7 @@ def calculate_gradtagzahl(daily_avg_df: pl.DataFrame, heating_indoor_temperature
     days_below_heating_limit = daily_avg_df.filter(
         pl.col("average_temperature") < heating_limit
     )
-    #print(gradtagzahl_df)
+
    # Group by year and month, then aggregate the data
     monthly_gradtagzahl = gradtagzahl_df.with_columns(
         pl.col("date").dt.truncate("1mo").alias("month")
@@ -52,7 +52,7 @@ def calculate_gradtagzahl(daily_avg_df: pl.DataFrame, heating_indoor_temperature
     ).alias("Datum")
     )
     monthly_gradtagzahl=monthly_gradtagzahl.select(pl.col("Datum"),pl.col(f"G({heating_indoor_temperature}°C / {heating_limit}°C)"),pl.col("Tage"),pl.col("Außentemperatur"),pl.col("Heiztage"),pl.col("Temperatur an Heiztagen"))
-    #print(monthly_gradtagzahl)
+
     # Reorder columns to place 'Datum' first and drop 'Jahr' and 'Monat'
     
     

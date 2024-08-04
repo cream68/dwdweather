@@ -3,12 +3,13 @@ import polars as pl
 import streamlit as st
 from wetterdienst import Parameter, Resolution
 
+@st.cache_data
 def get_daily_temperature(station_df, station_ids, start_date, end_date):
     """Retrieve and calculate the daily temperature from the closest stations"""
 
     # Initialize the request for daily temperature data
     request = DwdObservationRequest(
-        parameter=Parameter.TEMPERATURE_AIR_MEAN_200,
+        parameter=Parameter.TEMPERATURE_AIR_MEAN_2M,
         resolution=Resolution.DAILY,
         start_date=start_date,
         end_date=end_date
